@@ -1,4 +1,5 @@
 # LlamaCloud MCP Server
+[![smithery badge](https://smithery.ai/badge/@llamaindex/mcp-server-llamacloud)](https://smithery.ai/server/@llamaindex/mcp-server-llamacloud)
 
 A MCP server connecting to multiple managed indexes on [LlamaCloud](https://cloud.llamaindex.ai/)
 
@@ -15,6 +16,14 @@ This is a TypeScript-based MCP server that creates multiple tools, each connecte
 - Auto-generates tool names like `get_information_index_name` based on index names
 
 ## Installation
+
+### Installing via Smithery
+
+To install mcp-server-llamacloud for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@llamaindex/mcp-server-llamacloud):
+
+```bash
+npx -y @smithery/cli install @llamaindex/mcp-server-llamacloud --client claude
+```
 
 To use with your MCP Client (e.g. Claude Desktop, Windsurf or Cursor), add the following config to your MCP client config:
 
