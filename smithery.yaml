@@ -1,0 +1,58 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => {
+      const args = [];
+      for (const idx of config.indexes) {
+        args.push("--index", idx.indexName, "--description", idx.description);
+      }
+      return {
+        command: "node",
+        args: ["build/index.js", ...args],
+        env: {
+          LLAMA_CLOUD_PROJECT_NAME: config.projectName,
+          LLAMA_CLOUD_API_KEY: config.apiKey,
+        },
+      };
+    }
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - projectName
+      - apiKey
+      - indexes
+    properties:
+      projectName:
+        type: string
+        description: LlamaCloud project name
+      apiKey:
+        type: string
+        description: LlamaCloud API key
+      indexes:
+        type: array
+        items:
+          type: object
+          required:
+            - indexName
+            - description
+          properties:
+            indexName:
+              type: string
+              description: Name of the LlamaCloud index
+            description:
+              type: string
+              description: Description for the index tool
+        description: List of index definitions
+  exampleConfig:
+    projectName: my-llama-cloud-project
+    apiKey: ABCDEF123456
+    indexes:
+      - indexName: 10k-SEC-Tesla
+        description: 10k SEC documents from 2023 for Tesla
+      - indexName: 10k-SEC-Apple
+        description: 10k SEC documents from 2023 for Apple
